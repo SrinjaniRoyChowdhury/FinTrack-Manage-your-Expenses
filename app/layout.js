@@ -1,5 +1,6 @@
-import { Geist, Geist_Mono, Arimo } from "next/font/google";
+import { Arimo } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from '@clerk/nextjs';
 
 const arimo = Arimo({
   variable: "--font-arimo",
@@ -18,9 +19,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${arimo.variable}  h-full antialiased`}
+      className={`${arimo.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ClerkProvider>
+          {children}
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
