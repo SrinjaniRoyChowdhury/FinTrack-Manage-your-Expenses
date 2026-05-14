@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import Link from "next/link"; // Added this import
+import Link from "next/link"; 
 import { LayoutDashboard, PiggyBank, ReceiptText, Rocket } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 
