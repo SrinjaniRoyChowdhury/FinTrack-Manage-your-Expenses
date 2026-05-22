@@ -1,6 +1,7 @@
 import { Arimo } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs';
+import { Toaster } from "@/components/ui/sonner"
 
 const arimo = Arimo({
   variable: "--font-arimo",
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         <ClerkProvider>
           {children}
         </ClerkProvider>
+        <Toaster />
       </body>
     </html>
   );
