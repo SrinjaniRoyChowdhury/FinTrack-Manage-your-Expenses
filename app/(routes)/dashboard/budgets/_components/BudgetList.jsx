@@ -1,7 +1,7 @@
 "use client"
 import CreateBudget from './CreateBudget.jsx'
 import { db } from '@/utils/dbConfig.jsx'
-import { getTableColumns, eq, sql } from 'drizzle-orm'
+import { getTableColumns, eq, sql, desc } from 'drizzle-orm'
 import { Budgets, Expenses } from '@/utils/schema.js'
 import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/nextjs'
@@ -27,7 +27,8 @@ function BudgetList() {
             .from(Budgets)
             .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
             .where(eq(Budgets.createdBy, user.primaryEmailAddress?.emailAddress))
-            .groupBy(Budgets.id);
+            .groupBy(Budgets.id)
+            .orderBy(desc(Budgets.id));
 
         setBudgetList(result);
     }
@@ -35,11 +36,19 @@ function BudgetList() {
     return (
         <div className='mt-7'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-                <CreateBudget />
+                <CreateBudget 
+                  refreshData={()=>getBudgetList()}
+                />
 
-                {budgetList.map((budget, index) => (
+                {budgetList?.length>0? budgetList.map((budget, index) => (
                     <BudgetItem key={index} budget={budget} />
-                ))}
+                ))
+            :[1,2,3,4,5].map((item,index)=>(
+                <div key={index} className='w-full bg-slate-200 rounded-lg h-[150px] animate-pulse'>
+                    
+                </div>
+            ))
+            }
 
             </div>
         </div>
