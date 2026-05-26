@@ -2,16 +2,18 @@
 import { useEffect, useState, use } from "react";
 import { db } from "@/utils/dbConfig";
 import { Budgets, Expenses } from "@/utils/schema";
-import { and, eq, getTableColumns, sql } from "drizzle-orm";
+import { and, desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { useUser } from "@clerk/nextjs";
 import BudgetItem from "../../budgets/_components/BudgetItem";
 import AddExpense from "../_components/AddExpense";
+import ExpenseListTable from "../_components/ExpenseListTable";
 
 function ExpensesScreen({ params }) {
   const resolvedParams = use(params);
 
   const { user } = useUser();
   const [budgetInfo, setBudgetInfo] = useState(null);
+  const [expensesList, setExpensesList] = useState([]);
 
   useEffect(() => {
     if (user && resolvedParams?.id) {
@@ -19,6 +21,7 @@ function ExpensesScreen({ params }) {
     }
   }, [user, resolvedParams?.id]);
 
+  // Get Budget Info
   const getBudgetInfo = async () => {
     const result = await db
       .select({
@@ -37,6 +40,18 @@ function ExpensesScreen({ params }) {
       .groupBy(Budgets.id);
 
     setBudgetInfo(result[0]);
+    getExpensesList(Number(resolvedParams.id));
+  };
+
+  // Get Latest Expenses
+  const getExpensesList = async (budgetId) => {
+    const result = await db
+      .select()
+      .from(Expenses)
+      .where(eq(Expenses.budgetId, budgetId)) 
+      .orderBy(desc(Expenses.id));
+    
+    setExpensesList(result || []);
   };
 
   return (
@@ -53,6 +68,12 @@ function ExpensesScreen({ params }) {
           user={user}
           refreshData={getBudgetInfo}
         />
+      </div>
+      <div className="mt-4">
+        <h2 className="font-bold text-lg">Latest Expenses</h2>
+        <ExpenseListTable
+          expensesList={expensesList}
+          refreshData={()=>getBudgetInfo()}/>
       </div>
     </div>
   );
