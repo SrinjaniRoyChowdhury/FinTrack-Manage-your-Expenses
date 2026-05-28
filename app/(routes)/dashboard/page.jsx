@@ -61,7 +61,7 @@ function Dashboard() {
     <div className="p-5">
       <h2 className="font-bold text-3xl">Hi, {user?.fullName}</h2>
       <p className="text-slate-500">
-        Here's what happening with your money. Let's manage your money
+        {"Here's what happening with your money. Let's manage your money"}
       </p>
       
       

@@ -150,6 +150,7 @@ function ExpensesScreen({ params }) {
           budgetId={resolvedParams.id}
           user={user}
           refreshData={getBudgetInfo}
+          budgetInfo={budgetInfo}
         />
       </div>
       <div className="mt-4">
