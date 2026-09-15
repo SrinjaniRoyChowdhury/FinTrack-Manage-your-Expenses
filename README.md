@@ -175,7 +175,7 @@ npm run db:studio
 
 | Landing Page | Dashboard |
 |---|---|
-| ![Landing Page](public/landing.png) | ![Dashboard](public/dashboardpage.png) |
+| ![Landing Page](public/landing.png) | ![Dashboard](public/dashboardui.png) |
 
 ## 🗺️ Roadmap
 
