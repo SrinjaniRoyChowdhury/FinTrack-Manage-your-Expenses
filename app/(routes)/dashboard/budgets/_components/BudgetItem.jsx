@@ -42,7 +42,13 @@ function BudgetItem({ budget }) {
       <div className="mt-5">
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-xs text-slate-500">₹{totalSpend} Spend</h2>
-          <h2 className="text-xs text-slate-500 font-semibold text-primary">₹{remaining} Remaining</h2>
+          {remaining < 0 ? (
+            <h2 className="text-xs text-black font-bold bg-red-100 border border-red-300 px-2 py-0.5 rounded-md">
+              ₹{Math.abs(remaining)} Over Budget
+            </h2>
+          ) : (
+            <h2 className="text-xs text-slate-500 font-semibold text-primary">₹{remaining} Remaining</h2>
+          )}
         </div>
         <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
           <div

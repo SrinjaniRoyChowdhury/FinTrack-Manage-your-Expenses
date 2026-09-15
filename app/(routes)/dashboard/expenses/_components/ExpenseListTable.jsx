@@ -31,7 +31,7 @@ function ExpenseListTable({ expensesList, refreshData }) {
         return (
           <div key={expense.id || index} className="grid grid-cols-4 bg-slate-50 p-2 border-b">
             <h2>{expense.name}</h2>
-            <h2>${expense.amount}</h2>
+            <h2>₹{expense.amount}</h2>
             <h2>{expense.createdAT}</h2>
             <h2>
               <Trash className="text-red-600 cursor-pointer hover:scale-105 transition-all"

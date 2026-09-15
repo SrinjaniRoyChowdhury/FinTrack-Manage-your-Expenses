@@ -41,6 +41,11 @@ function AddExpense({ budgetId, user, refreshData, budgetInfo }) {
             toast.error("OVER-BUDGET Alert!", {
               description: `This expense puts you ₹${exceededBy.toFixed(0)} over your budget of ₹${budgetLimit}!`,
               duration: 6000,
+              style: {
+                color: "#000000",
+                backgroundColor: "#fee2e2",
+                border: "1px solid #f87171",
+              },
             });
           }
         }
